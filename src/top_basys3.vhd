@@ -25,6 +25,7 @@ end top_basys3;
 architecture top_basys3_arch of top_basys3 is
 
     -- signal declarations
+    signal w_master_reset: std_logic;
     signal w_reset_clk   : std_logic;
     signal w_reset_fsm   : std_logic;
    
@@ -156,8 +157,9 @@ begin
 	led(14 downto 0) <= (others => '0');
 	-- leave unused switches UNCONNECTED. Ignore any warnings this causes.
 	-- reset signals
-	w_reset_clk <= btnU or btnL;
-	w_reset_fsm <= btnU or btnR;
+	w_master_reset <= btnU;
+	w_reset_clk <= w_master_reset or btnL;
+	w_reset_fsm <= w_master_reset or btnR;
 	w_disp3 <= x"F";
 	w_disp2 <= w_floor2;
 	w_disp1 <= x"F";
